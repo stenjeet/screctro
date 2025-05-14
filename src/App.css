@@ -1,0 +1,14 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0;
+  padding: 0;
+}
+
+.appContainer {
+	display: flex;
+};

@@ -1,0 +1,24 @@
+.Navbar {
+	width: 140px;
+	height: 100vh;
+	border-right: 1px solid #fff
+};
+
+.navLinks {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+};
+
+.link {
+	text-decoration: none;
+	padding-left: 5px;
+	color: #fff;
+	font-size: 14px;
+	transition: all .5s;
+	width: 120px;
+}
+
+.link:hover {
+	background: #444444;
+}
