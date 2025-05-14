@@ -1,7 +1,8 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, desktopCapturer, globalShortcut, ipcMain, Notification } from 'electron'
 // import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import * as fs from 'node:fs'
 
 // const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -72,6 +73,36 @@ app.on('activate', () => {
   }
 })
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+	createWindow();
 
+	globalShortcut.register('PrintScreen', () => {
+		win?.webContents.send('take-screenshot');
+	});
+});
+
+ipcMain.handle('get-screen-sources', async() => {
+	const sources = await desktopCapturer.getSources({
+		types: ['screen'],
+		thumbnailSize: {width: 1920, height: 1080},
+	});
+	return sources;
+});
+
+ipcMain.handle('save-screenshot', async (_, base64: string) => {
+	const screenshotDir = path.join(app.getPath('pictures'), 'MyScreenshots');
+	if (!fs.existsSync(screenshotDir)) fs.mkdirSync(screenshotDir);
+
+	const filePath = path.join(screenshotDir, `screenshot-${Date.now()}.png`);
+	const buffer = Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+
+	const notification = new Notification({
+		title: "Успешно",
+		body: `Скриншот сохранен${filePath}`
+	})
+	notification.show();
+
+	fs.writeFileSync(filePath, buffer);
+	return filePath;
+})
 

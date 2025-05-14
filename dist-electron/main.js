@@ -1,48 +1,53 @@
-import { app, BrowserWindow } from "electron";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-process.env.APP_ROOT = path.join(__dirname, "..");
-const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
-const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
-const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
-let win;
-function createWindow() {
-  const iconPath = path.join(process.env.VITE_PUBLIC || "", "electron-vite.svg");
-  win = new BrowserWindow({
-    icon: iconPath,
+import { app as o, BrowserWindow as a, globalShortcut as u, ipcMain as l, desktopCapturer as w, Notification as _ } from "electron";
+import { fileURLToPath as P } from "node:url";
+import n from "node:path";
+import * as r from "node:fs";
+const d = n.dirname(P(import.meta.url));
+process.env.APP_ROOT = n.join(d, "..");
+const c = process.env.VITE_DEV_SERVER_URL, b = n.join(process.env.APP_ROOT, "dist-electron"), p = n.join(process.env.APP_ROOT, "dist");
+process.env.VITE_PUBLIC = c ? n.join(process.env.APP_ROOT, "public") : p;
+let e;
+function h() {
+  const t = n.join(process.env.VITE_PUBLIC || "", "electron-vite.svg");
+  e = new a({
+    icon: t,
     height: 700,
     webPreferences: {
-      preload: path.join(__dirname, "preload.mjs"),
-      nodeIntegration: true,
-      contextIsolation: true,
-      webSecurity: false
+      preload: n.join(d, "preload.mjs"),
+      nodeIntegration: !0,
+      contextIsolation: !0,
+      webSecurity: !1
     }
-  });
-  win.webContents.on("did-finish-load", () => {
-    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  });
-  if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL);
-  } else {
-    win.loadFile(path.join(RENDERER_DIST, "index.html"));
-  }
+  }), e.webContents.on("did-finish-load", () => {
+    e == null || e.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  }), c ? e.loadURL(c) : e.loadFile(n.join(p, "index.html"));
 }
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-    win = null;
-  }
+o.on("window-all-closed", () => {
+  process.platform !== "darwin" && (o.quit(), e = null);
 });
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+o.on("activate", () => {
+  a.getAllWindows().length === 0 && h();
 });
-app.whenReady().then(createWindow);
+o.whenReady().then(() => {
+  h(), u.register("PrintScreen", () => {
+    e == null || e.webContents.send("take-screenshot");
+  });
+});
+l.handle("get-screen-sources", async () => await w.getSources({
+  types: ["screen"],
+  thumbnailSize: { width: 1920, height: 1080 }
+}));
+l.handle("save-screenshot", async (t, f) => {
+  const s = n.join(o.getPath("pictures"), "MyScreenshots");
+  r.existsSync(s) || r.mkdirSync(s);
+  const i = n.join(s, `screenshot-${Date.now()}.png`), m = Buffer.from(f.replace(/^data:image\/\w+;base64,/, ""), "base64");
+  return new _({
+    title: "Успешно",
+    body: `Скриншот сохранен${i}`
+  }).show(), r.writeFileSync(i, m), i;
+});
 export {
-  MAIN_DIST,
-  RENDERER_DIST,
-  VITE_DEV_SERVER_URL
+  b as MAIN_DIST,
+  p as RENDERER_DIST,
+  c as VITE_DEV_SERVER_URL
 };

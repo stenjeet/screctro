@@ -1,7 +1,3 @@
-interface GallaryPageProps {
-	
-}
- 
 const GallaryPage = () => {
 	return (
 		<div>

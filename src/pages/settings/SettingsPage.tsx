@@ -1,7 +1,3 @@
-interface SettingsPageProps {
-	
-}
- 
 const SettingsPage = () => {
 	return (
 		<div>

@@ -1,7 +1,3 @@
-interface ScreenshotPageProps {
-	
-}
- 
 const ScreenshotPage = () => {
 	return (
 		<div>

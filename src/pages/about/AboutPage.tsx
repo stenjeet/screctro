@@ -1,7 +1,3 @@
-interface AboutPageProps {
-	
-}
- 
 const AboutPage = () => {
 	return (
 		<div>

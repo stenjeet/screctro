@@ -22,3 +22,13 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   // You can expose other APTs you need here.
   // ...
 });
+
+// Экспортируем API для работы со скриншотами
+contextBridge.exposeInMainWorld('electronAPI', {
+	onScreenshot: (callback: () => void) => {
+	ipcRenderer.on('take-screenshot', callback)
+	},
+	saveScreenshot: (base64: string) => ipcRenderer.invoke('save-screenshot', base64),
+	getScreenSources: () => ipcRenderer.invoke('get-screen-sources'),
+})
+  
