@@ -1,53 +1,56 @@
-import { app as o, BrowserWindow as a, globalShortcut as u, ipcMain as l, desktopCapturer as w, Notification as _ } from "electron";
-import { fileURLToPath as P } from "node:url";
-import n from "node:path";
-import * as r from "node:fs";
-const d = n.dirname(P(import.meta.url));
-process.env.APP_ROOT = n.join(d, "..");
-const c = process.env.VITE_DEV_SERVER_URL, b = n.join(process.env.APP_ROOT, "dist-electron"), p = n.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = c ? n.join(process.env.APP_ROOT, "public") : p;
+import { app as n, BrowserWindow as f, globalShortcut as P, ipcMain as u, screen as p, desktopCapturer as w, Notification as S } from "electron";
+import { fileURLToPath as _ } from "node:url";
+import t from "node:path";
+import * as c from "node:fs";
+const h = t.dirname(_(import.meta.url));
+process.env.APP_ROOT = t.join(h, "..");
+const a = process.env.VITE_DEV_SERVER_URL, b = t.join(process.env.APP_ROOT, "dist-electron"), m = t.join(process.env.APP_ROOT, "dist");
+process.env.VITE_PUBLIC = a ? t.join(process.env.APP_ROOT, "public") : m;
 let e;
-function h() {
-  const t = n.join(process.env.VITE_PUBLIC || "", "electron-vite.svg");
-  e = new a({
-    icon: t,
+function g() {
+  const s = t.join(process.env.VITE_PUBLIC || "", "electron-vite.svg");
+  e = new f({
+    icon: s,
     height: 700,
     webPreferences: {
-      preload: n.join(d, "preload.mjs"),
+      preload: t.join(h, "preload.mjs"),
       nodeIntegration: !0,
       contextIsolation: !0,
       webSecurity: !1
     }
   }), e.webContents.on("did-finish-load", () => {
     e == null || e.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  }), c ? e.loadURL(c) : e.loadFile(n.join(p, "index.html"));
+  }), a ? e.loadURL(a) : e.loadFile(t.join(m, "index.html"));
 }
-o.on("window-all-closed", () => {
-  process.platform !== "darwin" && (o.quit(), e = null);
+n.on("window-all-closed", () => {
+  process.platform !== "darwin" && (n.quit(), e = null);
 });
-o.on("activate", () => {
-  a.getAllWindows().length === 0 && h();
+n.on("activate", () => {
+  f.getAllWindows().length === 0 && g();
 });
-o.whenReady().then(() => {
-  h(), u.register("PrintScreen", () => {
+n.whenReady().then(() => {
+  g(), P.register("PrintScreen", () => {
     e == null || e.webContents.send("take-screenshot");
   });
 });
-l.handle("get-screen-sources", async () => await w.getSources({
-  types: ["screen"],
-  thumbnailSize: { width: 1920, height: 1080 }
-}));
-l.handle("save-screenshot", async (t, f) => {
-  const s = n.join(o.getPath("pictures"), "MyScreenshots");
-  r.existsSync(s) || r.mkdirSync(s);
-  const i = n.join(s, `screenshot-${Date.now()}.png`), m = Buffer.from(f.replace(/^data:image\/\w+;base64,/, ""), "base64");
-  return new _({
+u.handle("get-screen-source", async () => {
+  const s = p.getCursorScreenPoint(), r = p.getDisplayNearestPoint(s), o = r.id.toString();
+  return (await w.getSources({
+    types: ["screen"],
+    thumbnailSize: r.size
+  })).find((d) => d.display_id === o);
+});
+u.handle("save-screenshot", async (s, r) => {
+  const o = t.join(n.getPath("pictures"), "MyScreenshots");
+  c.existsSync(o) || c.mkdirSync(o);
+  const i = t.join(o, `screenshot-${Date.now()}.png`), l = Buffer.from(r.replace(/^data:image\/\w+;base64,/, ""), "base64");
+  return new S({
     title: "Успешно",
-    body: `Скриншот сохранен${i}`
-  }).show(), r.writeFileSync(i, m), i;
+    body: `Скриншот сохранен ${i}`
+  }).show(), c.writeFileSync(i, l), i;
 });
 export {
   b as MAIN_DIST,
-  p as RENDERER_DIST,
-  c as VITE_DEV_SERVER_URL
+  m as RENDERER_DIST,
+  a as VITE_DEV_SERVER_URL
 };

@@ -2,21 +2,7 @@
 
 declare namespace NodeJS {
   interface ProcessEnv {
-    /**
-     * The built directory structure
-     *
-     * ```tree
-     * ├─┬─┬ dist
-     * │ │ └── index.html
-     * │ │
-     * │ ├─┬ dist-electron
-     * │ │ ├── main.js
-     * │ │ └── preload.js
-     * │
-     * ```
-     */
     APP_ROOT: string
-    /** /dist/ or /public/ */
     VITE_PUBLIC: string
   }
 }
@@ -32,7 +18,7 @@ declare global {
     electronAPI: {
       onScreenshot: (callback: () => void) => void;
       saveScreenshot: (base64: string) => Promise<string>;
-      getScreenSources: () => Promise<Electron.DesktopCapturerSource[]>;
+      getScreenSource: () => Promise<Electron.DesktopCapturerSource>;
     }
   }
 }

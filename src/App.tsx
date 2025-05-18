@@ -8,8 +8,7 @@ function App() {
 	useEffect(() => {
 		window.electronAPI.onScreenshot(async() => {
 			try {
-				const sources = await window.electronAPI.getScreenSources();
-				if (!sources.length) throw new Error('Не удалось получить источники экрана');
+				const source = await window.electronAPI.getScreenSource();
 
 				const canvas = document.createElement('canvas');
 				const ctx = canvas.getContext('2d');
@@ -17,11 +16,9 @@ function App() {
 				if (!ctx) throw new Error('Не удалось получить контекст canvas');
 
 				const img = new Image();
-				img.src = sources[0].thumbnail.toDataURL();
+				img.src = source.thumbnail.toDataURL();
 
-				await new Promise((resolve) => {
-					img.onload = resolve;
-				});
+				await new Promise(resolve => (img.onload = resolve));
 
 				canvas.width = img.width;
 				canvas.height = img.height;

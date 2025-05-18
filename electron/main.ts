@@ -1,4 +1,4 @@
-import { app, BrowserWindow, desktopCapturer, globalShortcut, ipcMain, Notification } from 'electron'
+import { app, BrowserWindow, desktopCapturer, globalShortcut, ipcMain, Notification, screen } from 'electron'
 // import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
@@ -7,15 +7,6 @@ import * as fs from 'node:fs'
 // const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// The built directory structure
-//
-// ├─┬─┬ dist
-// │ │ └── index.html
-// │ │
-// │ ├─┬ dist-electron
-// │ │ ├── main.js
-// │ │ └── preload.mjs
-// │
 process.env.APP_ROOT = path.join(__dirname, '..')
 
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
@@ -81,12 +72,20 @@ app.whenReady().then(() => {
 	});
 });
 
-ipcMain.handle('get-screen-sources', async() => {
+ipcMain.handle('get-screen-source', async() => {
+
+	const cursorPoint = screen.getCursorScreenPoint();
+	const display = screen.getDisplayNearestPoint(cursorPoint);
+	const targetDisplayId = display.id.toString();
+
 	const sources = await desktopCapturer.getSources({
 		types: ['screen'],
-		thumbnailSize: {width: 1920, height: 1080},
+		thumbnailSize: display.size,
 	});
-	return sources;
+	
+	const targetSource = sources.find(s => s.display_id === targetDisplayId);
+
+	return targetSource;
 });
 
 ipcMain.handle('save-screenshot', async (_, base64: string) => {
@@ -98,7 +97,7 @@ ipcMain.handle('save-screenshot', async (_, base64: string) => {
 
 	const notification = new Notification({
 		title: "Успешно",
-		body: `Скриншот сохранен${filePath}`
+		body: `Скриншот сохранен ${filePath}`
 	})
 	notification.show();
 
