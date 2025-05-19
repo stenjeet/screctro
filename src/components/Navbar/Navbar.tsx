@@ -8,7 +8,6 @@ const Navbar = () => {
 		<div className={styles.Navbar}>
 			<div className={styles.navLinks}>
 				<Link to={RouteNames.GALLARY} className={styles.link}>Галлерея</Link>
-				<Link to={RouteNames.SCREENSHOTS} className={styles.link}>Скриншоты</Link>
 				<Link to={RouteNames.SETTINGS} className={styles.link}>Настройки</Link>
 				<Link to={RouteNames.ABOUT} className={styles.link}>О приложении</Link>
 			</div>
