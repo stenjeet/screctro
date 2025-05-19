@@ -2,10 +2,10 @@
   "name": "screenshot-app",
   "productName": "Screenshot",
   "author": "stenjeet",
-  "description": "dev build",
   "publisher": "stenjeet",
+  "description": "Screenshot",
   "private": true,
-  "version": "0.1.0-dev",
+  "version": "0.2.1-dev",
   "type": "module",
   "scripts": {
     "dev": "vite",
