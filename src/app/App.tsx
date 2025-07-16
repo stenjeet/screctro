@@ -1,9 +1,14 @@
-import { useEffect } from 'react';
-import './App.css'
-import AppRoutes from './components/AppRoutes';
-import Navbar from './components/Navbar/Navbar';
+import { useContext, useEffect } from 'react';
+import './styles/App.scss'
+import AppRoutes from '../components/AppRoutes';
+import Navbar from '../components/Navbar/Navbar';
+import { useLocation } from 'react-router-dom';
+import Overlay from '../components/Overlay';
+import { ThemeContext } from '../theme/ThemeContext';
 
 function App() {
+
+	const { theme } = useContext(ThemeContext)
 
 	useEffect(() => {
 		window.electronAPI.onScreenshot(async() => {
@@ -31,14 +36,21 @@ function App() {
 				alert('Не удалось создать скриншот: ' + (error instanceof Error ? error.message : 'Неизвестная ошибка'));
 			}
 		})
-	}, [])
+	}, []);
+
+	const location = useLocation();
+
+	if (location.pathname === '/overlay') {
+    	return <Overlay />
+  	};
 
 	return (
-		<div className='appContainer'>
+		<div className={`appContainer ${theme}`}>
 			<Navbar/>
 			<AppRoutes/>
 		</div>
-	)
-}
+	);
+};
+
 
 export default App;

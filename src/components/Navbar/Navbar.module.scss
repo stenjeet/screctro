@@ -1,24 +1,33 @@
 .Navbar {
-	width: 140px;
-	height: 100vh;
-	border-right: 1px solid #fff
+	height: var(--navbar-height);
+	width: 100%;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: end;
+	gap: 15px;
+	align-items: end;
+
+	font-family: 'Mansfield', sans-serif;
+	font-weight: 400;
 };
 
 .navLinks {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
+  display: flex;
+  gap: 20px;
+  height: 100%;
+   align-items: end;
 };
 
 .link {
 	text-decoration: none;
-	padding-left: 5px;
-	color: #fff;
-	font-size: 14px;
+	font-size: 18px;
 	transition: all .5s;
-	width: 120px;
-}
+	color: var(--primary-color)
+};
 
-.link:hover {
-	background: #444444;
+.version {
+	font-size: 10px;
+	margin-right: 25px;
+	margin-bottom: 0.4%;
+	color: rgb(124, 124, 124);
 }

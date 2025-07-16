@@ -1,5 +1,33 @@
+.GalleryPage {
+	height: 100%;
+};
+
+.title {
+	font-size: 24px;
+	font-weight: 500;
+	margin-bottom: 30px;
+	margin-left: 70px;
+};
+
 .PageContent {
 	display: grid;
-	grid-template-columns: repeat(3, 260px);
-	gap: 10px;
-}
+	grid-template-columns: repeat(4, 200px);
+	gap: 15px;
+	justify-content: center;
+};
+
+.img {
+	width: 200px;
+  	height: 150px;
+  	object-fit: cover;
+  	border-radius: 8px;
+  	box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  	transition: transform 0.3s ease;
+  	cursor: pointer;
+  	margin-bottom: 20px;
+};
+
+.img:hover {
+	transform: scale(1.10);
+	box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2)
+};

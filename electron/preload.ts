@@ -1,4 +1,5 @@
 import { ipcRenderer, contextBridge } from 'electron'
+import { version } from '../package.json';
 
 contextBridge.exposeInMainWorld('ipcRenderer', {
   on(...args: Parameters<typeof ipcRenderer.on>) {
@@ -19,14 +20,45 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   },
 });
 
-// Экспортируем API для работы со скриншотами
+
 contextBridge.exposeInMainWorld('electronAPI', {
 	onScreenshot: (callback: () => void) => {
 		ipcRenderer.on('take-screenshot', callback)
 	},
-	saveScreenshot: (base64: string) => ipcRenderer.invoke('save-screenshot', base64),
 	getScreenSource: () => ipcRenderer.invoke('get-screen-source'),
+	saveScreenshot: (base64: string) => ipcRenderer.invoke('save-screenshot', base64),
 	getScreenshotFiles: () => ipcRenderer.invoke('get-screenshot-files'),
-	// area screenshot
+	setSelectionArea: (area: { x: number; y: number; width: number; height: number }) => {
+		ipcRenderer.invoke('set-selection-area', area);
+	},
+	openScreenshot: (path: string) => {
+		ipcRenderer.invoke('open-screenshot', path)
+	},
+
+	// screenshot folder store
+	openFolderDialog: () => ipcRenderer.send('open-folder-dialog'),
+	onSelectedFolder: (callback: any) => ipcRenderer.on('selected-folder', (_, path) => callback(path)),
+	getScreenshotFolder: () => ipcRenderer.invoke('get-screenshot-folder'),
+
+	// autoStart store
+	getAutoStart: () => ipcRenderer.invoke('get-auto-start'),
+	setAutoStart: (enable: boolean) => ipcRenderer.invoke('set-auto-start', enable),
+
+	// notification store
+	getNotification: () => ipcRenderer.invoke('get-notification'),
+	setNotification: (enable: boolean) => ipcRenderer.invoke('set-notification', enable),
+
+	// theme store
+	getTheme: () => ipcRenderer.invoke('get-theme'),
+	setTheme: (theme: string) => ipcRenderer.invoke('set-theme', theme),
+
+	// language store
+	getLang: () => ipcRenderer.invoke('get-lang'),
+	setLang: (lang: string) => ipcRenderer.invoke('set-lang', lang),
+});
+
+
+contextBridge.exposeInMainWorld('appVersion', {
+	version
 });
   

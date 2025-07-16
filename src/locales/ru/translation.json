@@ -1,0 +1,14 @@
+{
+  "Gallery": "Галерея",
+  "Settings": "Настройки",
+  "About": "О приложении",
+  "Launch on system startup": "Запускать при старте системы",
+  "Enable notification": "Включить уведомления",
+  "Interface language": "Язык интерфейса",
+  "Theme": "Тема",
+  "Screenshot save folder": "Папка для сохранения скриншотов",
+  "Russian": "Русский",
+  "English": "Английский",
+  "Light": "Светлая",
+  "Dark": "Темная"
+}

@@ -1,0 +1,44 @@
+.title {
+	font-size: 24px;
+	font-weight: 500;
+	margin-bottom: 30px;
+	margin-left: 70px;
+};
+
+.appName {
+	margin-bottom: 10px;
+};
+
+.PageContent {
+	width: 800px;
+	margin: 0 0 0 72px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	color: var(--secondary-color);
+};
+
+.author {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+  	position: fixed;
+  	bottom: 15px;
+  	left: 50%;         
+  	transform: translateX(-50%);  
+  	text-align: center;
+  	width: 100%;
+  	font-size: 14px;
+};
+
+.allRight {
+	color: #666;
+};
+
+.license {
+	margin-top: 25px;
+};
+
+.github {
+	color: var(--secondary-color);
+};

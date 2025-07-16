@@ -1,0 +1,25 @@
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+};
+
+.folderBtn {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	padding: 8px 10px;
+	border: none;
+	border-radius: 8px;
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+	background: var(--secondary-bg-color);
+	color: var(--primary-color);
+	cursor: pointer;
+};
+
+.icon {
+	width: 22px;
+	height: 22px;
+	margin-top: 3px;
+	color: var(--folder-icon);
+};
