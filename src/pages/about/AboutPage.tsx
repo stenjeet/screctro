@@ -14,16 +14,16 @@ const AboutPage = () => {
 		<div className={styles.AboutPage}>
 			<h1 className={styles.title}>{t ('About')}</h1>
 			<div className={styles.PageContent}>
-				<p className={styles.appName}>Application Name</p>
-				<p>Version{' '}<Version /></p>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, recusandae officiis possimus vitae aperiam quos blanditiis aliquam nulla cumque tempore iusto rerum perferendis deserunt at?</p>
-				<a href="#" className={styles.github}>Visit GitHub</a>
+				<h4 className={styles.appName}>Screctro</h4>
+				<p>{t ('Version')}{' '}<Version /></p>
+				<p>{t ("This screenshot tool is built with Electron for quick and convenient screen capturing. Simple interface, minimal settings — maximum efficiency.")}</p>
+				<a href="#" className={styles.github}>{t ('Visit')}{' '}GitHub</a>
 				<div className={styles.license}>
-					<p>License:</p>
+					<p>{t ('License:')}</p>
 				</div>
 				<div className={styles.author}>
 					<p>Developed by stenjeet</p>
-					<p className={styles.allRight}>All rights reserved © 2025</p>
+					<p className={styles.allRight}>{t ('All rights reserved')}{' '}© 2025</p>
 				</div>
 			</div>
 		</div>

@@ -6,8 +6,7 @@
 
 .glassRadioGroup {
   	--bg: rgba(255, 255, 255, 0.06);
-  	--text: #e5e5e5;
-
+  	color: var(--primary-color);
 	position: relative;
 	display: flex;
  	background: var(--bg);
@@ -43,11 +42,11 @@
 };
 
 .glassRadioGroup label:hover {
-	color: white;
+	color: var(--primary-color);
 };
 
 .glassRadioGroup input:checked + label {
-	color: #fff;
+	color: var(--primary-color);
 };
 
 .glassGlider {
@@ -75,6 +74,6 @@
   	transform: translateX(114%);
   	background: linear-gradient(135deg, #a0d8ff, #c0c0c055);
   	box-shadow:
-    	0 0 12px rgba(255, 215, 0, 0.5),
-    	0 0 7px rgba(255, 235, 150, 0.4) inset;
+    	0 0 12px #a2d6fc,
+    	0 0 7px #a2d6fc inset;
 };

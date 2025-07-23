@@ -11,6 +11,7 @@ const Navbar = () => {
 
 	return (
 		<div className={styles.Navbar}>
+			<h3 className={styles.appName}>Screctro</h3>
 			<div className={styles.navLinks}>
 				<Link to={RouteNames.GALLERY} className={styles.link}>{t ('Gallery')}</Link>
 				<Link to={RouteNames.SETTINGS} className={styles.link}>{t ('Settings')}</Link>

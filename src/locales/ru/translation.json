@@ -10,5 +10,13 @@
   "Russian": "Русский",
   "English": "Английский",
   "Light": "Светлая",
-  "Dark": "Темная"
+  "Dark": "Темная",
+  "This screenshot tool is built with Electron for quick and convenient screen capturing. Simple interface, minimal settings — maximum efficiency."
+  : "Этот скриншотер создан на Electron для быстрого и удобного захвата экрана. Простой интерфейс, минимум настроек — максимум эффективности.",
+  "Version": "Версия",
+  "All rights reserved": "Все права защищены",
+  "Visit": "Посетить",
+  "Check for updates": "Проверить обновления",
+  "Check": "Проверить",
+  "It’s empty for now. Take a screenshot and it will appear here.": "Пока пусто. Сделайте скриншот — и он появится здесь."
 }

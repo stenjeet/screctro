@@ -55,6 +55,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
 	// language store
 	getLang: () => ipcRenderer.invoke('get-lang'),
 	setLang: (lang: string) => ipcRenderer.invoke('set-lang', lang),
+
+	// Updater
+  	checkForUpdates: () => ipcRenderer.send('check-for-updates'),
 });
 
 

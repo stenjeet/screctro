@@ -15,7 +15,7 @@ const GallaryPage = () => {
     	setImages(files);
   		};
   		loadImages();
-	});
+	}, []);
 
 	const openImage = (path: string) => {
 		window.electronAPI.openScreenshot(path)
@@ -25,15 +25,22 @@ const GallaryPage = () => {
 	return (
 		<div className={styles.GalleryPage}>
 			<h1 className={styles.title}>{t ('Gallery')}</h1>
-			<div className={styles.PageContent}>
-				{images.map((image) => (
-					<img
-						className={styles.img}
-						src={`file://${image.path}`}
-						alt={image.name}
-						onClick={() => openImage(image.path)}
-					/>
-				))}
+			<div className={images.length > 0 ? styles.PageContentGrid : styles.PageContentFlex}>
+				{
+					images.length > 0
+					?
+					images.map((image) => (
+						<img
+							key={`file://${image.path}`}
+							className={styles.img}
+							src={`file://${image.path}`}
+							alt={image.name}
+							onClick={() => openImage(image.path)}
+						/>
+					))
+					:
+					<p className={styles.text}>{t ('It’s empty for now. Take a screenshot and it will appear here.')}</p>
+				}
 			</div>
 		</div>
 	);

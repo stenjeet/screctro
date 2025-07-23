@@ -7,6 +7,7 @@ import FolderSelector from '../../shared/ui/FolderSelector/FolderSelector';
 import CheckBoxSettings from '../../shared/ui/CheckBoxSettings/CheckBoxSettings';
 import LanguageSettings from '../../shared/ui/LanguageSettings/LanguageSettings';
 import ThemeSettings from '../../shared/ui/ThemeSettings/ThemeSettings';
+import Update from '../../shared/ui/Update/Update';
 
 
 
@@ -55,6 +56,7 @@ const SettingsPage = () => {
 				<LanguageSettings/>
 				<ThemeSettings/>
 				<FolderSelector/>
+				<Update/>
 			</div>
 		</div>
 	);

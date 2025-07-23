@@ -18,7 +18,7 @@
     "artifactName": "${productName}-Mac-${version}-Installer.${ext}"
   },
   "win": {
-	"icon": "public/icon.ico",
+	"icon": "public/screenshot_logo.ico",
     "target": [
       {
         "target": "nsis",
@@ -40,5 +40,12 @@
       "AppImage"
     ],
     "artifactName": "${productName}-Linux-${version}.${ext}"
-  }
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "stenjeet",
+      "repo": "screenshoter-electron"
+    }
+  ]
 }

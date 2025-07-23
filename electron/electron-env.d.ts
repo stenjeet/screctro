@@ -51,6 +51,9 @@ declare global {
 		// language store
   		getLang: () => Promise<string>;
   		setLang: (lang: string) => Promise<void>;
+
+		// Updater
+		checkForUpdates: () => void,
 		};
 		appVersion: {
 			version: string

@@ -10,5 +10,13 @@
 	"Russian": "Russian",
 	"English": "English",
 	"Light": "Light",
-	"Dark": "Dark"
+	"Dark": "Dark",
+	"This screenshot tool is built with Electron for quick and convenient screen capturing. Simple interface, minimal settings — maximum efficiency."
+	: "This screenshot tool is built with Electron for quick and convenient screen capturing. Simple interface, minimal settings — maximum efficiency.",
+	"Version": "Version",
+	"All rights reserved": "All rights reserved",
+	"Visit": "Visit",
+	"Check for updates": "Check for updates",
+	"Check": "Check",
+	"It’s empty for now. Take a screenshot and it will appear here.": "It’s empty for now. Take a screenshot and it will appear here."
 }

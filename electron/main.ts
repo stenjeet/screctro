@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import * as fs from 'node:fs';
 import Store from 'electron-store';
+import { autoUpdater } from 'electron-updater';
 
 
 
@@ -24,13 +25,13 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 
 let win: BrowserWindow | null;
 let overlay: BrowserWindow | null;
 let tray: Tray;
-let screenshotDir: string;
+let isQuitting: boolean = false;
 const store = new Store();
 
 
 
 function createWindow() {
-	const iconPath = path.join(process.env.VITE_PUBLIC || '', 'tray-icon.png')
+	const iconPath = path.join(process.env.VITE_PUBLIC || '', 'screenshot_logo.ico')
   
   	win = new BrowserWindow({
     	icon: iconPath,
@@ -38,13 +39,14 @@ function createWindow() {
 		width: 1000,
 		resizable: false,
 	 	fullscreenable: false,
-		show: true,
+		show: false,
 		autoHideMenuBar: true,
     	webPreferences: {
       		preload: path.join(__dirname, 'preload.mjs'),
-      		nodeIntegration: true,
+      		nodeIntegration: false,
       		contextIsolation: true,
       		webSecurity: false,
+			devTools: false,
     	},
   	});
 
@@ -59,6 +61,17 @@ function createWindow() {
     	// win.loadFile('dist/index.html')
     	win.loadFile(path.join(RENDERER_DIST, 'index.html'))
   	};
+
+	app.on('before-quit', () => {
+  		isQuitting = true;
+	});
+
+	win.on('close', (event) => {
+  		if (!isQuitting) {
+    	event.preventDefault();
+    	win?.hide();
+  		}
+	});
 };
 
 
@@ -80,9 +93,10 @@ function overlayWindow() {
 		frame: false,
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.mjs'),
-      		nodeIntegration: true,
+      		nodeIntegration: false,
       		contextIsolation: true,
-      		webSecurity: false,
+      		webSecurity: true,
+			devTools: false,
 		}
 	});
 
@@ -158,8 +172,8 @@ ipcMain.handle('get-screen-source', async() => {
 
 ipcMain.handle('save-screenshot', async (_, base64: string) => {
 
-	screenshotDir = path.join(app.getPath('pictures'), 'MyScreenshots');
-	if (!fs.existsSync(screenshotDir)) fs.mkdirSync(screenshotDir);
+	// screenshotDir = path.join(app.getPath('pictures'), 'MyScreenshots');
+	// if (!fs.existsSync(screenshotDir)) fs.mkdirSync(screenshotDir);
 
 	const filePath = await saveScreenshot(base64);
 
@@ -281,12 +295,12 @@ if (isAutoStart !== systemAutoStart) {
 
 function trayMenu() {
 
-	const iconPath = path.join(process.env.VITE_PUBLIC || '', 'tray-icon.png');
+	const iconPath = path.join(process.env.VITE_PUBLIC || '', 'screenshot_logo.ico');
 	tray = new Tray(iconPath);
 
 	const contextMenu = Menu.buildFromTemplate([
 		{
-			label: 'AutoStart',
+			label: 'Autostart',
 			type: 'checkbox',
 			checked: isAutoStart,
 			click: (menuItem) => {
@@ -300,8 +314,15 @@ function trayMenu() {
 				})
 			}
 		},
-		{label: 'Quit', click: () => app.quit()}
+		{ label: 'Quit', click: () => {
+    		isQuitting = true; 
+    		app.quit();
+  		}}
 	]);
+
+	tray.on('click', () => {
+    	win?.show();
+  	});
 
 	tray.setToolTip('');
 	tray.setContextMenu(contextMenu);
@@ -311,7 +332,7 @@ function rebuildTray(isAutoStart: boolean) {
 
 	const contextMenu = Menu.buildFromTemplate([
     	{
-      		label: 'AutoStart',
+      		label: 'Autostart',
       		type: 'checkbox',
       		checked: isAutoStart,
       		click: (menuItem) => {
@@ -323,7 +344,10 @@ function rebuildTray(isAutoStart: boolean) {
         		});
       		},
     },
-    { label: 'Quit', click: () => app.quit() },
+    	{ label: 'Quit', click: () => {
+    		isQuitting = true; 
+    		app.quit();
+  		}}
   ]);
 
   tray.setContextMenu(contextMenu);
@@ -351,7 +375,7 @@ async function saveScreenshot(base64: string) {
 
 	if (isNotificationEnabled) {
     	// лучше с __dirname
-    	const iconPath = path.join(__dirname, 'tray-icon.png');
+    	const iconPath = path.join(__dirname, 'screenshot_logo.ico');
 
     	const notification = new Notification({
       		title: "Screenshot saved",
@@ -369,3 +393,31 @@ async function saveScreenshot(base64: string) {
 };
 
 
+
+// update (electron updater)
+
+ipcMain.on('check-for-updates', () => {
+  	autoUpdater.checkForUpdates();
+});
+
+autoUpdater.on('update-downloaded', () => {
+	dialog.showMessageBox({
+    	type: 'info',
+    	title: 'Update',
+    	message: 'New update available. Restart now?',
+    	buttons: ['Yes', 'Later'],
+    	defaultId: 0,
+    	cancelId: 1,
+		noLink: true
+  	}).then(result => {
+    	if (result.response === 0) autoUpdater.quitAndInstall();
+  	});
+});
+
+autoUpdater.on('update-not-available', () => {
+	dialog.showMessageBox({
+    	type: 'info',
+    	title: 'Update',
+    	message: 'No updates available',
+  	})
+})
