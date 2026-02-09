@@ -10,17 +10,17 @@ import '..//i18n.ts';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-	<HashRouter>
-		<ThemeProvider>
-			<App />
-		</ThemeProvider>
-	</HashRouter>
-  </React.StrictMode>
+	<React.StrictMode>
+		<HashRouter>
+			<ThemeProvider>
+				<App />
+			</ThemeProvider>
+		</HashRouter>
+	</React.StrictMode>
 );
 
 
 window.ipcRenderer.on('main-process-message', (_event: IpcRendererEvent, ...args: unknown[]) => {
-  const message = args[0] as string;
-  console.log(message);
+	const message = args[0] as string;
+	console.log(message);
 });

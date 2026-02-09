@@ -10,11 +10,11 @@ const GallaryPage = () => {
 
 
 	useEffect(() => {
-  		const loadImages = async () => {
-    	const files = await window.electronAPI.getScreenshotFiles();
-    	setImages(files);
-  		};
-  		loadImages();
+		const loadImages = async () => {
+			const files = await window.electronAPI.getScreenshotFiles();
+			setImages(files);
+		};
+		loadImages();
 	}, []);
 
 	const openImage = (path: string) => {
@@ -28,18 +28,18 @@ const GallaryPage = () => {
 			<div className={images.length > 0 ? styles.PageContentGrid : styles.PageContentFlex}>
 				{
 					images.length > 0
-					?
-					images.map((image) => (
-						<img
-							key={`file://${image.path}`}
-							className={styles.img}
-							src={`file://${image.path}`}
-							alt={image.name}
-							onClick={() => openImage(image.path)}
-						/>
-					))
-					:
-					<p className={styles.text}>{t ('It’s empty for now. Take a screenshot and it will appear here.')}</p>
+						?
+						images.map((image) => (
+							<img
+								key={`file://${image.path}`}
+								className={styles.img}
+								src={`file://${image.path}`}
+								alt={image.name}
+								onClick={() => openImage(image.path)}
+							/>
+						))
+						:
+						<p className={styles.text}>{t ('It’s empty for now. Take a screenshot and it will appear here.')}</p>
 				}
 			</div>
 		</div>

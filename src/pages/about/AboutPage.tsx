@@ -19,7 +19,7 @@ const AboutPage = () => {
 				<p>{t ("This screenshot tool is built with Electron for quick and convenient screen capturing. Simple interface, minimal settings — maximum efficiency.")}</p>
 				<a href="#" className={styles.github}>{t ('Visit')}{' '}GitHub</a>
 				<div className={styles.license}>
-					<p>{t ('License:')}</p>
+					<p>{t ('License')}:</p>
 				</div>
 				<div className={styles.author}>
 					<p>Developed by stenjeet</p>

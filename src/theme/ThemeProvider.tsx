@@ -5,7 +5,7 @@ import { Theme, ThemeContext } from "./ThemeContext";
 
 function isTheme(value: string): value is Theme {
 	return value === Theme.LIGHT || value === Theme.DARK;
-};
+}
 
  
 const ThemeProvider = ({children}: {children: ReactNode}) => {
@@ -13,20 +13,20 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
 
 
 	useEffect(() => {
-    	window.electronAPI.getTheme().then((savedTheme: string) => {
-      		if (isTheme(savedTheme)) {
-        		setTheme(savedTheme);
-      		} else {
-        		setTheme(Theme.LIGHT);
-      		};
-    	});
-  	}, []);
+		window.electronAPI.getTheme().then((savedTheme: string) => {
+			if (isTheme(savedTheme)) {
+				setTheme(savedTheme);
+			} else {
+				setTheme(Theme.LIGHT);
+			}
+		});
+	}, []);
 
 
 	function changeTheme(newTheme: Theme): void {
 		setTheme(newTheme);
 		window.electronAPI.setTheme(newTheme);
-	};
+	}
 
 
 	return (

@@ -28,13 +28,13 @@ const SettingsPage = () => {
 		const checked = e.target.checked;
 		setAutoStart(checked);
 		await window.electronAPI.setAutoStart(checked);
-	};
+	}
 
 	async function handleNotification(e: React.ChangeEvent<HTMLInputElement>) {
 		const checked = e.target.checked;
 		setNotification(checked);
 		await window.electronAPI.setNotification(checked);
-	};
+	}
 
 
 	return (

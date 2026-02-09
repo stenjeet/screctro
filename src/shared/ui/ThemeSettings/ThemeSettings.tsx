@@ -14,7 +14,7 @@ const ThemeSettings = () => {
 		<div className={styles.wrapper}>
 			<p>{t ('Theme')}</p>
 			<div className={styles.glassRadioGroup}>
-  				<input
+				<input
 					type="radio" 
 					name="theme" 
 					className={styles.light} 
@@ -22,9 +22,9 @@ const ThemeSettings = () => {
 					checked={theme == Theme.LIGHT}
 					onChange={() => changeTheme(Theme.LIGHT)}
 				/>
-  				<label htmlFor="Light">{t ('Light')}</label>
+				<label htmlFor="Light">{t ('Light')}</label>
 
-  				<input 
+				<input 
 					type="radio" 
 					name="theme" 
 					className={styles.dark} 
@@ -32,9 +32,9 @@ const ThemeSettings = () => {
 					checked={theme == Theme.DARK}
 					onChange={() => changeTheme(Theme.DARK)}
 				/>
-  				<label htmlFor="Dark">{t ('Dark')}</label>
+				<label htmlFor="Dark">{t ('Dark')}</label>
 
-  				<div className={styles.glassGlider}></div>
+				<div className={styles.glassGlider}></div>
 			</div>
 		</div>
 	);

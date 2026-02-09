@@ -12,8 +12,9 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': [
       'warn',
-      { allowConstantExport: true },
-	  'no-mixed-spaces-and-tabs',
+      { allowConstantExport: true }
     ],
+	'indent': ['error', 'tab'],
+	'no-mixed-spaces-and-tabs': 'error'
   },
 }

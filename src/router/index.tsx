@@ -11,14 +11,14 @@ import Overlay from "../components/Overlay";
 interface IRoute {
 	path: string;
 	element: ReactElement;
-};
+}
 
 export enum RouteNames {
 	GALLERY = 'gallary',
 	SETTINGS = 'settings',
 	ABOUT = 'about',
 	OVERLAY = 'overlay'
-};
+}
 
 export const routes: IRoute[] = [
 	{path: RouteNames.GALLERY, element: <GalleryPage/>},

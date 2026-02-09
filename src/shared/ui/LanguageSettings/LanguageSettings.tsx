@@ -11,21 +11,21 @@ const LanguageSettings = () => {
 
 
 	useEffect(() => {
-    	window.electronAPI.getLang().then(lang => setLang(lang));
-  	}, []);
+		window.electronAPI.getLang().then(lang => setLang(lang));
+	}, []);
 
 	useEffect(() => {
-  		window.electronAPI.getLang().then((savedLang) => {
-    	setLang(savedLang);
-    	i18n.changeLanguage(savedLang);
-  	});
-	}, []);
+		window.electronAPI.getLang().then((savedLang) => {
+			setLang(savedLang);
+			i18n.changeLanguage(savedLang);
+		});
+	}, [i18n]);
 
 
 	const onChangeLang = (newLang: string) => {
-  		setLang(newLang);
-  		i18n.changeLanguage(newLang);
-  		window.electronAPI.setLang(newLang); 
+		setLang(newLang);
+		i18n.changeLanguage(newLang);
+		window.electronAPI.setLang(newLang); 
 	};
 
 
@@ -33,7 +33,7 @@ const LanguageSettings = () => {
 		<div className={styles.wrapper}>
 			<p>{t('Interface language')}</p>
 			<div className={styles.glassRadioGroup}>
-  				<input
+				<input
 					type="radio" 
 					name="language" 
 					className={styles.Russian} 
@@ -41,9 +41,9 @@ const LanguageSettings = () => {
 					checked={lang === 'ru'}
 					onChange={() => onChangeLang('ru')}
 				/>
-  				<label htmlFor="Russian">{t ('Russian')}</label>
+				<label htmlFor="Russian">{t ('Russian')}</label>
 
-  				<input 
+				<input 
 					type="radio" 
 					name="language" 
 					className={styles.English} 
@@ -51,9 +51,9 @@ const LanguageSettings = () => {
 					checked={lang === 'en'}
 					onChange={() => onChangeLang('en')}
 				/>
-  				<label htmlFor="English">{t ('English')}</label>
+				<label htmlFor="English">{t ('English')}</label>
 
-  				<div className={styles.glassGlider}></div>
+				<div className={styles.glassGlider}></div>
 			</div>
 		</div>
 	);

@@ -41,8 +41,8 @@ function App() {
 	const location = useLocation();
 
 	if (location.pathname === '/overlay') {
-    	return <Overlay />
-  	};
+		return <Overlay />
+	}
 
 	return (
 		<div className={`appContainer ${theme}`}>
@@ -50,7 +50,7 @@ function App() {
 			<AppRoutes/>
 		</div>
 	);
-};
+}
 
 
 export default App;

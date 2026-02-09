@@ -2,22 +2,22 @@ import { ipcRenderer, contextBridge } from 'electron'
 import { version } from '../package.json';
 
 contextBridge.exposeInMainWorld('ipcRenderer', {
-  on(...args: Parameters<typeof ipcRenderer.on>) {
-    const [channel, listener] = args
-    return ipcRenderer.on(channel, (event, ...args) => listener(event, ...args))
-  },
-  off(...args: Parameters<typeof ipcRenderer.off>) {
-    const [channel, ...omit] = args
-    return ipcRenderer.off(channel, ...omit)
-  },
-  send(...args: Parameters<typeof ipcRenderer.send>) {
-    const [channel, ...omit] = args
-    return ipcRenderer.send(channel, ...omit)
-  },
-  invoke(...args: Parameters<typeof ipcRenderer.invoke>) {
-    const [channel, ...omit] = args
-    return ipcRenderer.invoke(channel, ...omit)
-  },
+	on(...args: Parameters<typeof ipcRenderer.on>) {
+		const [channel, listener] = args
+		return ipcRenderer.on(channel, (event, ...args) => listener(event, ...args))
+	},
+	off(...args: Parameters<typeof ipcRenderer.off>) {
+		const [channel, ...omit] = args
+		return ipcRenderer.off(channel, ...omit)
+	},
+	send(...args: Parameters<typeof ipcRenderer.send>) {
+		const [channel, ...omit] = args
+		return ipcRenderer.send(channel, ...omit)
+	},
+	invoke(...args: Parameters<typeof ipcRenderer.invoke>) {
+		const [channel, ...omit] = args
+		return ipcRenderer.invoke(channel, ...omit)
+	},
 });
 
 
@@ -37,7 +37,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
 	// screenshot folder store
 	openFolderDialog: () => ipcRenderer.send('open-folder-dialog'),
-	onSelectedFolder: (callback: any) => ipcRenderer.on('selected-folder', (_, path) => callback(path)),
+	onSelectedFolder: (callback: (path: string) => void) => ipcRenderer.on('selected-folder', (_, path) => callback(path)),
 	getScreenshotFolder: () => ipcRenderer.invoke('get-screenshot-folder'),
 
 	// autoStart store
@@ -57,7 +57,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 	setLang: (lang: string) => ipcRenderer.invoke('set-lang', lang),
 
 	// Updater
-  	checkForUpdates: () => ipcRenderer.send('check-for-updates'),
+	checkForUpdates: () => ipcRenderer.send('check-for-updates'),
 });
 
 

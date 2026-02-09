@@ -12,7 +12,7 @@ const FolderSelector = () => {
 
 	function handleSelectFolder() {
 		window.electronAPI.openFolderDialog();
-	};
+	}
 
 	useEffect(() => {
 		window.electronAPI.onSelectedFolder((path) => {
@@ -21,17 +21,17 @@ const FolderSelector = () => {
 	}, []);
 
 	useEffect(() => {
-  		window.electronAPI.getScreenshotFolder().then(setFolderPath);
+		window.electronAPI.getScreenshotFolder().then(setFolderPath);
 
- 		window.electronAPI.onSelectedFolder((path) => {
-    	setFolderPath(path);
-  	});
+		window.electronAPI.onSelectedFolder((path) => {
+			setFolderPath(path);
+		});
 	}, []);
 
 	return (
 		<div className={styles.wrapper}>
 			<p>{t ('Screenshot save folder')}</p>
-      		<button className={styles.folderBtn} onClick={handleSelectFolder}>
+			<button className={styles.folderBtn} onClick={handleSelectFolder}>
 				{folderPath || "Не выбрана"}
 				<HiOutlineFolder className={styles.icon}/>
 			</button>

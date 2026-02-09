@@ -8,14 +8,14 @@ const Update = () => {
 	const { t } = useTranslation();
 
 	const checkUpdates = () => {
-    	window.electronAPI.checkForUpdates();
-  	};
+		window.electronAPI.checkForUpdates();
+	};
 
 	return (
 		<div className={styles.wrapper}>
 			<p>{t ('Check for updates')}</p>
-    		<button className={styles.btn} onClick={checkUpdates}>{t ('Check')}</button>
-    	</div>
+			<button className={styles.btn} onClick={checkUpdates}>{t ('Check')}</button>
+		</div>
 	);
 };
 
