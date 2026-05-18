@@ -39,7 +39,7 @@ Desktop screenshot application built with Electron, React, and TypeScript.
 ### Clone repository
 
 ```bash
-git clone <your-repository-url>
+git clone <repository-url>
 cd screctro
 ```
 
