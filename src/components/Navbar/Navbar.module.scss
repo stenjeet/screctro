@@ -12,18 +12,25 @@
 };
 
 .navLinks {
-  display: flex;
-  gap: 20px;
-  height: 100%;
-   align-items: end;
+  	display: flex;
+	gap: 8px;
+  	height: 100%;
+	align-items: end;
 };
 
 .link {
 	text-decoration: none;
-	font-size: 18px;
+	font-size: 16px;
 	transition: all .5s;
-	color: var(--primary-color)
+	color: var(--secondary-color);
+	padding: 4px 10px;
+	border-radius: 8px;
 };
+
+.activeLink {
+	color: var(--primary-color);
+	background-color: var(--nav-active-bg);
+}
 
 .version {
 	font-size: 10px;

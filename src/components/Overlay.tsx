@@ -28,9 +28,11 @@ const Overlay = () => {
 		const sel = selection;
 		setSelection(null)
 		if (sel) {
-			await window.electronAPI.setSelectionArea(selection);
+			await window.electronAPI.setSelectionArea(sel);
 		}
 	};
+
+	const currentSelection = selection ?? { x: 0, y: 0, width: 0, height: 0 };
 
 	return (
 		<div
@@ -40,7 +42,7 @@ const Overlay = () => {
 				left: 0,
 				width: '100vw',
 				height: '100vh',
-				backgroundColor: 'rgba(0,0,0,0.1)',
+				backgroundColor: 'transparent',
 				cursor: 'crosshair',
 				userSelect: 'none',
 				zIndex: 9999,
@@ -49,18 +51,18 @@ const Overlay = () => {
 			onMouseMove={onMouseMove}
 			onMouseUp={onMouseUp}
 		>
-			{selection && (
-				<div
-					style={{
-						position: 'absolute',
-						border: '1px solid #ffffff',
-						left: selection.x,
-						top: selection.y,
-						width: selection.width,
-						height: selection.height,
-					}}
-				/>
-			)}
+			<div
+				style={{
+					position: 'absolute',
+					border: selection ? '1px solid #ffffff' : 'none',
+					backgroundColor: 'transparent',
+					boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
+					left: currentSelection.x,
+					top: currentSelection.y,
+					width: currentSelection.width,
+					height: currentSelection.height,
+				}}
+			/>
 		</div>
 	);
 };

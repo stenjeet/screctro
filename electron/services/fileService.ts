@@ -12,6 +12,12 @@ export async function openScreenshot(filePath: string) {
 	await shell.openPath(filePath);
 }
 
+export async function deleteScreenshot(filePath: string) {
+	if (fs.existsSync(filePath)) {
+		fs.unlinkSync(filePath);
+	}
+}
+
 
 export async function selectScreenshotFolder(): Promise<string | null> {
 	const { canceled, filePaths } = await dialog.showOpenDialog({

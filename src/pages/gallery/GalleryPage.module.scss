@@ -1,36 +1,118 @@
 .GalleryPage {
-	height: 100%;
+	height: calc(100vh - var(--navbar-height) - 20px);
+	display: flex;
+	flex-direction: column;
+};
+
+.PageHeader {
+	display: flex;
+	flex-direction: column;
+	padding: 0 30px;
+	margin-bottom: 30px;
 };
 
 .title {
 	font-size: 24px;
 	font-weight: 500;
-	margin-bottom: 30px;
-	margin-left: 70px;
 };
+
+.description {
+	font-size: 14px;
+	color: var(--secondary-color);
+};
+
+.PageContent {
+	flex: 1;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-bottom: 12px;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.PageContent::-webkit-scrollbar {
+	display: none;
+}
 
 .PageContentGrid {
 	display: grid;
 	grid-template-columns: repeat(4, 200px);
 	gap: 15px;
 	justify-content: center;
+	align-content: start;
 };
+
+.card {
+	position: relative;
+	width: 200px;
+	height: 150px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+	overflow: hidden;
+}
 
 .img {
 	width: 200px;
-  	height: 150px;
+	height: 150px;
   	object-fit: cover;
   	border-radius: 8px;
   	box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   	transition: transform 0.3s ease;
   	cursor: pointer;
-  	margin-bottom: 20px;
 };
 
-.img:hover {
-	transform: scale(1.10);
-	box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2)
-};
+.card:hover .img {
+	transform: scale(1.06);
+	box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.cardActions {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	background: rgba(0, 0, 0, 0.45);
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.card:hover .cardActions {
+	opacity: 1;
+}
+
+.actionButton {
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	background: rgba(255, 255, 255, 0.14);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	color: white;
+	padding: 0;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.actionButton:hover {
+	transform: translateY(-1px);
+	background: rgba(255, 255, 255, 0.24);
+}
+
+.trashButton {
+	background: rgb(220, 38, 38);
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+.trashButton:hover {
+	background: rgb(185, 28, 28);
+}
 
 .PageContentFlex {
 	display: flex;

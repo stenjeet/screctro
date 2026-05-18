@@ -14,6 +14,23 @@
 	color: var(--secondary-color);
 };
 
+.SettingsBlock {
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+	padding: 16px 18px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.blockTitle {
+	margin: 0 0 4px;
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--primary-color);
+}
+
 .input {
 	background: #3f3f3f;
 	padding: 2px 8px;

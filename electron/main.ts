@@ -11,6 +11,7 @@ import { registerSettingsIPC } from './ipc/settingsIPC';
 import { registerFileIPC } from './ipc/fileIPC';
 import { initAutoStart } from './services/settingsService';
 import { screenshotIPC } from './ipc/screenshotIPC';
+import { openLinkIPC } from './ipc/openLinkIPC';
 
 
 
@@ -53,6 +54,7 @@ app.whenReady().then(() => {
 	registerSettingsIPC();
 	registerFileIPC();
 	screenshotIPC();
+	openLinkIPC();
 
 
 

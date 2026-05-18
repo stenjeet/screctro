@@ -27,7 +27,7 @@
         ]
       }
     ],
-    "artifactName": "${productName}-Windows-${version}-Setup.${ext}"
+    "artifactName": "${productName}-Windows-v${version}-Setup.${ext}"
   },
   "nsis": {
     "oneClick": false,
@@ -45,7 +45,7 @@
     {
       "provider": "github",
       "owner": "stenjeet",
-      "repo": "screenshoter-electron"
+      "repo": "screctro"
     }
   ]
 }

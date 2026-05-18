@@ -1,6 +1,7 @@
 import { ipcMain } from 'electron';
 import {
 	openScreenshot,
+	deleteScreenshot,
 	selectScreenshotFolder,
 	getScreenshotFolder,
 	getScreenshotFiles
@@ -10,6 +11,7 @@ import {
 
 export function registerFileIPC() {
 	ipcMain.handle('open-screenshot', (_, filePath: string) => openScreenshot(filePath));
+	ipcMain.handle('delete-screenshot', (_, filePath: string) => deleteScreenshot(filePath));
 
 	ipcMain.on('open-folder-dialog', async(event) => {
 		const selectedPath = await selectScreenshotFolder();

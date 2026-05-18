@@ -41,22 +41,29 @@ const SettingsPage = () => {
 		<div className={styles.SettingsPage}>
 			<h1 className={styles.title}>{t ('Settings')}</h1>
 			<div className={styles.PageContent}>
-				<CheckBoxSettings
-					title={t ('Launch on system startup')}
-					checked={AutoStart}
-					handleChange={handleAutoStart}
-					id='checkboxOne'
-				/>
-				<CheckBoxSettings
-					title={t ('Enable notification')}
-					checked={Notification}
-					handleChange={handleNotification}
-					id='checkboxTwo'
-				/>
-				<LanguageSettings/>
-				<ThemeSettings/>
-				<FolderSelector/>
-				<Update/>
+				<div className={styles.SettingsBlock}>
+					<h2 className={styles.blockTitle}>{t('App settings')}</h2>
+					<CheckBoxSettings
+						title={t ('Launch on system startup')}
+						checked={AutoStart}
+						handleChange={handleAutoStart}
+						id='checkboxOne'
+					/>
+					<CheckBoxSettings
+						title={t ('Enable notification')}
+						checked={Notification}
+						handleChange={handleNotification}
+						id='checkboxTwo'
+					/>
+					<LanguageSettings/>
+					<ThemeSettings/>
+				</div>
+
+				<div className={styles.SettingsBlock}>
+					<h2 className={styles.blockTitle}>{t('Storage & updates')}</h2>
+					<FolderSelector/>
+					<Update/>
+				</div>
 			</div>
 		</div>
 	);

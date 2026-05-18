@@ -3,38 +3,87 @@
 	font-weight: 500;
 	margin-bottom: 30px;
 	margin-left: 70px;
-};
+}
 
 .PageContent {
 	width: 800px;
 	margin: 0 0 0 72px;
 	display: flex;
 	flex-direction: column;
-	gap: 15px;
+	gap: 20px;
 	color: var(--secondary-color);
-};
+}
+
+.appInfo {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.appName {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.infoRow {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+}
+
+.centerRow {
+	align-items: center;
+}
+
+.description {
+	background-color: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+	padding: 16px 18px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	font-size: 14px;
+	color: var(--secondary-color);
+}
+
+.links {
+	background-color: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+	padding: 16px 18px;
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+}
+
+.link {
+	padding: 6px 12px;
+	border-radius: 8px;
+	border: 1px solid var(--card-border);
+	background-color: var(--card-bg);
+
+	&:hover {
+		background-color: var(--card-hover-bg);
+	}
+}
 
 .author {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
-  	position: fixed;
-  	bottom: 15px;
-  	left: 50%;         
-  	transform: translateX(-50%);  
-  	text-align: center;
-  	width: 100%;
-  	font-size: 14px;
-};
+	font-size: 14px;
+}
 
 .allRight {
 	color: #666;
-};
+}
 
-.license {
-	margin-top: 25px;
-};
-
-.github {
+.link {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
 	color: var(--secondary-color);
-};
+	text-decoration: none;
+}
